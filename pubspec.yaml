@@ -1,5 +1,5 @@
 name: nvp
-version: 0.0.14
+version: 0.0.15
 description: Utility for patching nobs versions.
 dependencies:
   args: any

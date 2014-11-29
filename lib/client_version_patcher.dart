@@ -15,7 +15,7 @@ class ClientVersionPatcher extends Transformer{
       return transform.primaryInput.readAsString().then((content) {
         final buildInfo = nvp.getBuildInfo();
         final id = transform.primaryInput.id;
-        final buildNumber = buildInfo['BUILD_NUMBER'] != null ? buildInfo['BUILD_INFO'] : "1";
+        final buildNumber = buildInfo['BUILD_NUMBER'] != null ? buildInfo['BUILD_NUMBER'] : "1";
         final branch = buildInfo['BRANCH'] != null ? buildInfo['BRANCH'] : ""; // todo: detect via cli?
         final commitId = buildInfo['COMMIT_ID'] != null ? buildInfo['COMMIT_ID'] : ""; // todo: detect via cli?
         final buildTime = buildInfo['BUILD_TIME'] != null ? buildInfo['BUILD_TIME'] : new DateTime.now().toIso8601String();
