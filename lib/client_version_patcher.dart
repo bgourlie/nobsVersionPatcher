@@ -35,8 +35,7 @@ class ClientVersionPatcher extends Transformer{
 
   static String _replaceConst(String content, String constName, String newValue){
     print('Setting $constName = "$newValue"');
-    final regex = new RegExp(r"const " + constName + r" = '(.+)'");
-    print(content);
+    final regex = new RegExp(r"const " + constName + r" = '(.*)'");
     if(!regex.hasMatch(content)){
       print('Couldn\'t locate const $constName');
     }
