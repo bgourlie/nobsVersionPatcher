@@ -7,9 +7,7 @@ import 'package:nvp/nvp.dart' as nvp;
 class ClientVersionPatcher extends Transformer{
   final BarbackSettings _settings;
 
-  ClientVersionPatcher.asPlugin(this._settings){
-    print("ClientVersionPatcher Init.");
-  }
+  ClientVersionPatcher.asPlugin(this._settings);
 
   String get allowedExtensions => '.dart';
 
@@ -19,10 +17,10 @@ class ClientVersionPatcher extends Transformer{
         return null;
       }
 
-      print('Transform.primaryInput: ${transform.primaryInput}');
       return transform.primaryInput.readAsString().then((content) {
         final buildInfo = nvp.getBuildInfo();
         final id = transform.primaryInput.id;
+
         var newContent = _replaceConst(content, 'BUILD_NUMBER', buildInfo['BUILD_NUMBER']);
         newContent = _replaceConst(newContent, 'BRANCH', buildInfo['BRANCH']);
         newContent = _replaceConst(newContent, 'COMMIT_ID', buildInfo['COMMIT_ID']);
@@ -33,12 +31,11 @@ class ClientVersionPatcher extends Transformer{
 
   Future<bool> isPrimary(AssetId id) {
     final entryPoint = 'web/${this._settings.configuration['entryPoint']}';
-    print('id.path=${id.path}');
-    print('entrypoint=${this._settings.configuration["entryPoint"]}');
     return new Future<bool>(() => id.path == '$entryPoint');
   }
 
   static String _replaceConst(String content, String constName, String newValue){
+    print('Setting $constName = "$newValue"');
     final regex = new RegExp(r"const " + constName + r" = '(.+)'");
     return content.replaceFirst(regex, 'const $constName = "$newValue"');
   }
