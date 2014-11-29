@@ -11,9 +11,11 @@ class ClientVersionPatcher extends Transformer{
 
   Future apply(Transform transform) {
       if(_settings.mode.name == 'debug') {
+        print('Mode is debug, skipping transform.');
         return null;
       }
 
+      print('Transform.primaryInput: ${transform.primaryInput}');
       return transform.primaryInput.readAsString().then((content) {
         final buildInfo = nvp.getBuildInfo();
         final id = transform.primaryInput.id;
