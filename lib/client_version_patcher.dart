@@ -7,7 +7,9 @@ import 'package:nvp/nvp.dart' as nvp;
 class ClientVersionPatcher extends Transformer{
   final BarbackSettings _settings;
 
-  ClientVersionPatcher.asPlugin(this._settings);
+  ClientVersionPatcher.asPlugin(this._settings){
+    print("ClientVersionPatcher Init.");
+  }
 
   Future apply(Transform transform) {
       if(_settings.mode.name == 'debug') {
