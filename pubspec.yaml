@@ -1,4 +1,4 @@
-name: nobsVersionPatcher
+name: nvp
 version: 0.0.1
 description: Utility for patching nobs versions.
 dependencies:
