@@ -12,19 +12,18 @@ class ClientVersionPatcher extends Transformer{
   String get allowedExtensions => '.dart';
 
   Future apply(Transform transform) {
-      if(_settings.mode.name == 'debug') {
-        print('Mode is debug, skipping transform.');
-        return null;
-      }
-
       return transform.primaryInput.readAsString().then((content) {
         final buildInfo = nvp.getBuildInfo();
         final id = transform.primaryInput.id;
+        final buildNumber = buildInfo['BUILD_NUMBER'] ? buildInfo['BUILD_INFO'] : "1";
+        final branch = buildInfo['BRANCH'] ? buildInfo['BRANCH'] : "";
+        final commitId = buildInfo['COMMIT_ID'] ? buildInfo['COMMIT_ID'] : "";
+        final buildTime = buildInfo['BUILD_TIME'] ? buildInfo['BUILD_TIME'] : new DateTime.now().toIso8601String();
 
-        var newContent = _replaceConst(content, 'BUILD_NUMBER', buildInfo['BUILD_NUMBER']);
-        newContent = _replaceConst(newContent, 'BRANCH', buildInfo['BRANCH']);
-        newContent = _replaceConst(newContent, 'COMMIT_ID', buildInfo['COMMIT_ID']);
-        newContent = _replaceConst(newContent, 'BUILD_TIME', buildInfo['BUILD_TIME']);
+        var newContent = _replaceConst(content, 'BUILD_NUMBER', buildNumber);
+        newContent = _replaceConst(newContent, 'BRANCH', branch);
+        newContent = _replaceConst(newContent, 'COMMIT_ID', commitId);
+        newContent = _replaceConst(newContent, 'BUILD_TIME', buildTime);
         transform.addOutput(new Asset.fromString(id,  newContent));
       });
   }
@@ -37,6 +36,9 @@ class ClientVersionPatcher extends Transformer{
   static String _replaceConst(String content, String constName, String newValue){
     print('Setting $constName = "$newValue"');
     final regex = new RegExp(r"const " + constName + r" = '(.+)'");
+    if(!regex.hasMatch(content)){
+      print('Couldn\'t locate const $constName');
+    }
     return content.replaceFirst(regex, 'const $constName = "$newValue"');
   }
 }
