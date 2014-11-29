@@ -34,6 +34,7 @@ class ClientVersionPatcher extends Transformer{
   Future<bool> isPrimary(AssetId id) {
     final entryPoint = 'web/${this._settings.configuration['entryPoint']}';
     print('id.path=${id.path}');
+    print('entrypoint=${this._settings.configuration["entryPoint"]}');
     return new Future<bool>(() => id.path == '$entryPoint');
   }
 
