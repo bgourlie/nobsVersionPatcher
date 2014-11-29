@@ -11,6 +11,8 @@ class ClientVersionPatcher extends Transformer{
     print("ClientVersionPatcher Init.");
   }
 
+  String get allowedExtensions => '.dart';
+
   Future apply(Transform transform) {
       if(_settings.mode.name == 'debug') {
         print('Mode is debug, skipping transform.');
