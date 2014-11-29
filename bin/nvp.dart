@@ -11,6 +11,11 @@ int main(args) {
   patchServerCmd.addOption('out', abbr: 'o', defaultsTo: path.join(Directory.current.path, 'version.json'), help: "Where to write the version.json file.");
   final parsed = parser.parse(args);
 
+  if(parsed.command == null){
+    print('No command or unknown command specified.');
+    return 1;
+  }
+
   switch(parsed.command.name){
     case "genServerVersion":
 
