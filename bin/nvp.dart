@@ -27,6 +27,7 @@ int main(args) {
         final outputLocation = parsed.command["out"];
         final outputFile = new File(outputLocation);
         outputFile.writeAsStringSync(JSON.encode(versionObj));
+        print("Successfully wrote $outputFile");
         break;
     default:
       print('unknown command.');
