@@ -18,9 +18,9 @@ String getServerVersion(String projectDir){
 Map<String, String> getBuildInfo(){
   final env = Platform.environment;
   return {
-      'buildNumber' : env['TRAVIS_BUILD_NUMBER'],
-      'branch' : env['TRAVIS_BRANCH'],
-      'commitId' : env['TRAVIS_COMMIT'],
-      'buildTime' : new DateTime.now().toUtc().toIso8601String()
+      'BUILD_NUMBER' : env['TRAVIS_BUILD_NUMBER'],
+      'BRANCH' : env['TRAVIS_BRANCH'],
+      'COMMIT_ID' : env['TRAVIS_COMMIT'],
+      'BUILD_TIME' : env['BUILD_TIME']
   };
 }

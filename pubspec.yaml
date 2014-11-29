@@ -4,5 +4,6 @@ description: Utility for patching nobs versions.
 dependencies:
   args: any
   path: any
+  barback: any
 dev_dependencies:
 #  unittest: any
