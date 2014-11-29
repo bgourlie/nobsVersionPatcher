@@ -1,0 +1,8 @@
+name: nobsVersionPatcher
+version: 0.0.1
+description: Utility for patching nobs versions.
+dependencies:
+  args: any
+  path: any
+dev_dependencies:
+#  unittest: any
