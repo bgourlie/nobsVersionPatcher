@@ -6,9 +6,12 @@ import 'package:nvp/nvp.dart' as nvp;
 
 int main(args) {
   final parser = new ArgParser();
-  parser.addCommand("genServerVersion")
-      ..addOption("projectDir", abbr: 'p', defaultsTo: Directory.current.path, help: "The directory where the project.json exists.")
-      ..addOption('out', abbr: 'o', defaultsTo: path.join(Directory.current.path, 'version.json'), help: "Where to write the version.json file.");
+  parser.addCommand('genServerVersion')
+      ..addOption('projectDir', abbr: 'p', defaultsTo: Directory.current.path, help: 'The directory where the project.json exists.')
+      ..addOption('out', abbr: 'o', defaultsTo: path.join(Directory.current.path, 'version.json'), help: 'Where to write the version.json file.');
+
+  parser.addCommand('patchWebConfig')
+      ..addOption('configLocation', abbr: 'c', defaultsTo: path.join(Directory.current.path, 'web.config'), help: 'Location of the web.config to patch.');
 
   final parsed = parser.parse(args);
 
@@ -19,18 +22,23 @@ int main(args) {
 
   try{
     switch(parsed.command.name){
-      case "genServerVersion":
-        final projectDir = parsed.command["projectDir"];
+      case 'genServerVersion':
+        final projectDir = parsed.command['projectDir'];
         final version = nvp.getServerVersion(projectDir);
         final versionObj = nvp.getBuildInfo();
         versionObj['version'] = version;
-        final outputLocation = parsed.command["out"];
+        final outputLocation = parsed.command['out'];
         final outputFile = new File(outputLocation);
         outputFile.writeAsStringSync(JSON.encode(versionObj));
-        print("Successfully wrote $outputFile");
+        print('Successfully wrote $outputFile');
+        break;
+      case 'patchWebConfig':
+        final configLocation = parsed.command['configLocation'];
+        nvp.patchWebConfig(configLocation);
+        print('web.config patched!');
         break;
     default:
-      print('unknown command.');
+      print('command not implemented.');
       return 70;
     }
   }catch(ex) {
