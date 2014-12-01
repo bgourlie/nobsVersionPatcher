@@ -26,7 +26,7 @@ int main(args) {
         final projectDir = parsed.command['projectDir'];
         final version = nvp.getServerVersion(projectDir);
         final versionObj = nvp.getBuildInfo();
-        versionObj['version'] = version;
+        versionObj['VERSION'] = version;
         final outputLocation = parsed.command['out'];
         final outputFile = new File(outputLocation);
         outputFile.writeAsStringSync(JSON.encode(versionObj));
