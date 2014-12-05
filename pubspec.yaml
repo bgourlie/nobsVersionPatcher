@@ -1,10 +1,9 @@
 name: nvp
-version: 0.0.17
+version: 0.1.0
 description: Utility for patching nobs versions.
 dependencies:
   args: any
   path: any
   barback: any
-  xml: any
 dev_dependencies:
 #  unittest: any

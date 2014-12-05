@@ -25,28 +25,3 @@ Map<String, String> getBuildInfo(){
       'BUILD_TIME' : env['BUILD_TIME']
   };
 }
-
-void patchWebConfig(String configLocation){
-  const patchFragment = """
-
-  <system.webServer>
-    <staticContent>
-      <mimeMap fileExtension=".json" mimeType="text/html" />
-    </staticContent>
-  </system.webServer>
-""";
-
-  final configFile = new File(configLocation);
-  if(!configFile.existsSync()){
-    throw '$configFile doesn\'t exist';
-  }
-
-  final configContents = configFile.readAsStringSync();
-
-  if(configContents.contains(patchFragment)){
-    throw 'It appears $configLocation has already been patched.';
-  }
-
-  final patched = configContents.replaceFirst(r'<configuration>', '<configuration>$patchFragment');
-  configFile.writeAsStringSync(patched, mode: FileMode.WRITE);
-}

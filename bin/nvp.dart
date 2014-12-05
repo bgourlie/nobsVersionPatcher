@@ -10,9 +10,6 @@ int main(args) {
       ..addOption('projectDir', abbr: 'p', defaultsTo: Directory.current.path, help: 'The directory where the project.json exists.')
       ..addOption('out', abbr: 'o', defaultsTo: path.join(Directory.current.path, 'version.json'), help: 'Where to write the version.json file.');
 
-  parser.addCommand('patchWebConfig')
-      ..addOption('configLocation', abbr: 'c', defaultsTo: path.join(Directory.current.path, 'web.config'), help: 'Location of the web.config to patch.');
-
   final parsed = parser.parse(args);
 
   if(parsed.command == null){
@@ -31,11 +28,6 @@ int main(args) {
         final outputFile = new File(outputLocation);
         outputFile.writeAsStringSync(JSON.encode(versionObj));
         print('Successfully wrote $outputFile');
-        break;
-      case 'patchWebConfig':
-        final configLocation = parsed.command['configLocation'];
-        nvp.patchWebConfig(configLocation);
-        print('web.config patched!');
         break;
     default:
       print('command not implemented.');
