@@ -3,7 +3,6 @@ library nvp;
 import 'dart:io';
 import 'dart:convert' show JSON;
 import 'package:path/path.dart' as path;
-import 'package:xml/xml.dart' as xml;
 
 String getServerVersion(String projectDir){
   var projectJson = new File(path.join(projectDir, 'project.json'));
