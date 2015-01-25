@@ -24,7 +24,7 @@ class ClientVersionPatcher extends Transformer {
           ? buildInfo['COMMIT_ID']
           : ""; // todo: detect via cli?
       final buildTime = buildInfo['BUILD_TIME'] != null
-          ? buildInfo['BUILD_TIME']
+          ? DateTime.parse(buildInfo['BUILD_TIME']).toUtc().toIso8601String()
           : new DateTime.now().toUtc().toIso8601String();
 
       var newContent = _replaceConst(content, 'BUILD_NUMBER', buildNumber);
